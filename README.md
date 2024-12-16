@@ -42,24 +42,31 @@ The ml_env_setup.sh script performs the following tasks:
     8. Docker: Installs Docker and Docker Compose for containerized workflows.
     9. Verification: Ensures all installations are successful.
 Verification Steps
+
 After running the script, verify your setup with the following commands:
+
     • Python Version:
       python –version
       
     • Pip Version:
-      pip --version
+      pip –version
+
     • Conda Version:
       conda --version
     • GPU Driver:
       nvidia-smi
+
     • Docker:
-      docker --version
+      docker –version
+
     • Docker Compose:
       docker-compose –version
+
 Notes:
     • Activate the ml-env Conda environment before starting your projects:
       conda activate ml-env
     • If you encounter issues, check the logs or documentation for individual tools.
+
 -----------------------------------------------------------------------------------------------------------------------------------
 STEPS
 
