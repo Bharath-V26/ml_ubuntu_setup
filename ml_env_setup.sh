@@ -40,8 +40,13 @@ log "Miniconda installed"
 
 log "Step 6: Initialize Conda"
 conda init || { log "Failed to initialize Conda!"; exit 1; }
+
+# Manually source ~/.bashrc to apply the changes (or add a delay before continuing)
 source ~/.bashrc || { log "Failed to source ~/.bashrc"; exit 1; }
 log "Conda initialized"
+
+# Allow some time for conda to initialize if needed
+sleep 2
 
 log "Step 7: Create and activate Conda environment"
 conda create -n ml-env python=3.12 -y || { log "Conda environment creation failed!"; exit 1; }
