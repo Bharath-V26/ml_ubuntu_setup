@@ -37,8 +37,8 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O Mi
 bash Miniconda3.sh -b -p $HOME/miniconda || { log "Miniconda installation failed!"; exit 1; }
 rm Miniconda3.sh
 conda init bash
-source ~/.bashrc
-log "Miniconda installed"
+source ~/.bashrc || { log "Failed to source ~/.bashrc"; exit 1; }
+log "Conda initialized"
 
 log "Step 6: Create and activate Conda environment"
 conda create -n ml-env python=3.12 -y || { log "Conda environment creation failed!"; exit 1; }
