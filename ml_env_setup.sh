@@ -49,6 +49,7 @@ log "Conda initialized"
 sleep 2
 
 log "Step 7: Create and activate Conda environment"
+source ~/.bashrc || { log "Failed to source ~/.bashrc"; exit 1; }
 conda create -n ml-env python=3.12 -y || { log "Conda environment creation failed!"; exit 1; }
 conda activate ml-env || { log "Failed to activate Conda environment!"; exit 1; }
 log "Conda environment 'ml-env' created and activated"
