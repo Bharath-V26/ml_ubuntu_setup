@@ -1,14 +1,14 @@
-Machine Learning Environment Setup on Ubuntu 22.04
+﻿Machine Learning Environment Setup on Ubuntu 22.04
 
 This guide outlines the steps to set up a machine learning environment on Ubuntu 22.04. It includes installing essential tools, libraries, and GPU-specific configurations for PyTorch and TensorFlow.
 
 Prerequisites
 
-> Ubuntu 22.04 system with sudo privileges.
-
-> NVIDIA GPU (for GPU-specific configurations).
-
-> Stable internet connection.
+    • Ubuntu 22.04 system with sudo privileges.
+      
+    • NVIDIA GPU (for GPU-specific configurations).
+      
+    • Stable internet connection.
 
 Steps
 
@@ -118,7 +118,8 @@ docker --version
 
 Docker Compose:
 
-docker-compose --version
+docker-compose –version
+-----------------------------------------------------------------------------------------------------------------------------------
 
 Notes
 
@@ -129,6 +130,3 @@ conda activate ml-env
 If any issues arise, check for error logs and dependencies.
 
 This setup ensures your machine is ready for machine learning development with tools optimized for performance.
-
-# ml_ubuntu_setup
-Machine Learning Environment Setup on Ubuntu 22.04
