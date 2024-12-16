@@ -28,6 +28,7 @@ Quick Start
 
 2. Make the Script Executable:
 chmod +x ml_env_setup.sh
+
 3. Run the Script:
 ./ml_env_setup.sh
 What the Script Does
@@ -41,12 +42,12 @@ The ml_env_setup.sh script performs the following tasks:
     7. Jupyter Notebook: Installs Jupyter and additional Python libraries (matplotlib, pandas, etc.).
     8. Docker: Installs Docker and Docker Compose for containerized workflows.
     9. Verification: Ensures all installations are successful.
+        
 Verification Steps
-
 After running the script, verify your setup with the following commands:
 
     • Python Version:
-      python –version
+      python3 –version
       
     • Pip Version:
       pip –version
@@ -65,6 +66,7 @@ After running the script, verify your setup with the following commands:
 Notes:
     • Activate the ml-env Conda environment before starting your projects:
       conda activate ml-env
+      
     • If you encounter issues, check the logs or documentation for individual tools.
 
 -----------------------------------------------------------------------------------------------------------------------------------
@@ -74,7 +76,7 @@ STEPS
 
 Ensure all system packages are up to date:
 
-“sudo apt update && sudo apt upgrade -y”
+sudo apt update && sudo apt upgrade -y
 
 2. Install Development Tools and Libraries
 
