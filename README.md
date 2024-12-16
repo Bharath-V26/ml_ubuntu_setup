@@ -183,7 +183,7 @@ Notes
 
 Activate your conda environment before working:
 
-conda activate ml-env
+“conda activate ml-env”
 
 If any issues arise, check for error logs and dependencies.
 
