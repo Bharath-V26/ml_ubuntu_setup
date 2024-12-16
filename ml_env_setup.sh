@@ -22,7 +22,7 @@ sudo apt install -y build-essential git curl wget unzip software-properties-comm
 log "Step 3: Install Python 3.12"
 sudo add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt update
-sudo apt install -y python3.12 python3.12-distutils python3.12-venv || { log "Python 3.12 installation failed!"; exit 1; }
+sudo apt install -y python3.12 python3-distutils python3.12-venv || { log "Python 3.12 installation failed!"; exit 1; }
 sudo ln -sf /usr/bin/python3.12 /usr/bin/python3
 log "Python 3.12 installed"
 
