@@ -34,18 +34,23 @@ log "pip installed for Python 3.12"
 
 log "Step 5: Install Miniconda"
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O Miniconda3.sh || { log "Failed to download Miniconda!"; exit 1; }
+chmod +x Miniconda3.sh || { log "Failed to make Miniconda installer executable!"; exit 1; }
 bash Miniconda3.sh -b -p $HOME/miniconda || { log "Miniconda installation failed!"; exit 1; }
 rm Miniconda3.sh
-conda init bash
+log "Miniconda installed"
+
+log "Step 6: Initialize Conda"
+$HOME/miniconda/bin/conda init bash || { log "Failed to initialize Conda!"; exit 1; }
 source ~/.bashrc || { log "Failed to source ~/.bashrc"; exit 1; }
 log "Conda initialized"
 
-log "Step 6: Create and activate Conda environment"
+log "Step 7: Create and activate Conda environment"
 conda create -n ml-env python=3.12 -y || { log "Conda environment creation failed!"; exit 1; }
 conda activate ml-env || { log "Failed to activate Conda environment!"; exit 1; }
 log "Conda environment 'ml-env' created and activated"
 
-log "Step 7: Install NVIDIA GPU drivers and CUDA toolkit"
+log "Step 8: Install NVIDIA GPU drivers and CUDA toolkit"
+# Ensure necessary packages are installed
 sudo apt install -y nvidia-driver-525 || { log "NVIDIA driver installation failed!"; exit 1; }
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin || { log "Failed to download CUDA pin file!"; exit 1; }
 sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -55,16 +60,16 @@ sudo apt update
 sudo apt install -y cuda || { log "CUDA toolkit installation failed!"; exit 1; }
 log "NVIDIA GPU drivers and CUDA toolkit installed"
 
-log "Step 8: Install TensorFlow and PyTorch"
+log "Step 9: Install TensorFlow and PyTorch"
 pip install tensorflow || { log "TensorFlow installation failed!"; exit 1; }
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 || { log "PyTorch installation failed!"; exit 1; }
 log "TensorFlow and PyTorch installed"
 
-log "Step 9: Install Jupyter Notebook and ML libraries"
+log "Step 10: Install Jupyter Notebook and ML libraries"
 pip install jupyter matplotlib pandas numpy scikit-learn || { log "Jupyter Notebook or ML libraries installation failed!"; exit 1; }
 log "Jupyter Notebook and additional ML libraries installed"
 
-log "Step 10: Install Docker and Docker Compose"
+log "Step 11: Install Docker and Docker Compose"
 sudo apt install -y docker.io || { log "Docker installation failed!"; exit 1; }
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER || { log "Failed to add user to Docker group!"; exit 1; }
@@ -72,8 +77,7 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 log "Docker and Docker Compose installed"
 
-log "Step 11: Verify installations and summarize"
-
+log "Step 12: Verify installations and summarize"
 # Version checks
 log "Versions:"
 python --version >> $LOG_FILE
