@@ -34,13 +34,12 @@ log "pip installed for Python 3.12"
 
 log "Step 5: Install Miniconda"
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O Miniconda3.sh || { log "Failed to download Miniconda!"; exit 1; }
-chmod +x Miniconda3.sh || { log "Failed to make Miniconda installer executable!"; exit 1; }
 bash Miniconda3.sh -b -p $HOME/miniconda || { log "Miniconda installation failed!"; exit 1; }
 rm Miniconda3.sh
 log "Miniconda installed"
 
 log "Step 6: Initialize Conda"
-$HOME/miniconda/bin/conda init bash || { log "Failed to initialize Conda!"; exit 1; }
+conda init || { log "Failed to initialize Conda!"; exit 1; }
 source ~/.bashrc || { log "Failed to source ~/.bashrc"; exit 1; }
 log "Conda initialized"
 
@@ -50,7 +49,6 @@ conda activate ml-env || { log "Failed to activate Conda environment!"; exit 1; 
 log "Conda environment 'ml-env' created and activated"
 
 log "Step 8: Install NVIDIA GPU drivers and CUDA toolkit"
-# Ensure necessary packages are installed
 sudo apt install -y nvidia-driver-525 || { log "NVIDIA driver installation failed!"; exit 1; }
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin || { log "Failed to download CUDA pin file!"; exit 1; }
 sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -78,6 +76,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 log "Docker and Docker Compose installed"
 
 log "Step 12: Verify installations and summarize"
+
 # Version checks
 log "Versions:"
 python --version >> $LOG_FILE
