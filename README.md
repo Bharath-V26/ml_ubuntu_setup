@@ -55,9 +55,8 @@ After running the script, verify your setup with the following commands:
     • Docker:
       docker --version
     • Docker Compose:
-      docker-compose --version
-
-Notes
+      docker-compose –version
+Notes:
     • Activate the ml-env Conda environment before starting your projects:
       conda activate ml-env
     • If you encounter issues, check the logs or documentation for individual tools.
