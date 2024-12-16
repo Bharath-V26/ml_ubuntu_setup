@@ -74,7 +74,7 @@ STEPS
 
 Ensure all system packages are up to date:
 
-sudo apt update && sudo apt upgrade -y
+“sudo apt update && sudo apt upgrade -y”
 
 2. Install Development Tools and Libraries
 
