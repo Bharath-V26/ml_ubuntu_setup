@@ -34,7 +34,7 @@ log "pip installed for Python 3.12"
 
 log "Step 5: Install Miniconda"
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O Miniconda3.sh || { log "Failed to download Miniconda!"; exit 1; }
-bash Miniconda3.sh -b -p $HOME/miniconda || { log "Miniconda installation failed!"; exit 1; }
+bash Miniconda3.sh -b -p $HOME/miniconda -u || { log "Miniconda installation failed!"; exit 1; }
 rm Miniconda3.sh
 log "Miniconda installed"
 
