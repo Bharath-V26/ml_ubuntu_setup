@@ -1,40 +1,78 @@
 #!/bin/bash
 
-# Exit on error
+# Exit script on any error
 set -e
 
-# Step 1: Update system packages
+echo "Starting Machine Learning Environment Setup on Ubuntu 22.04..."
+
+# 1. Update System Packages
 echo "Updating system packages..."
-sudo apt update
-sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 
-# Step 2: Install development tools and libraries
+# 2. Install Development Tools and Libraries
 echo "Installing development tools and libraries..."
-sudo apt install -y build-essential curl git software-properties-common unzip wget
+sudo apt install -y build-essential git curl wget unzip software-properties-common
 
-# Step 3: Install Python 3.12
+# 3. Install Python 3.12
 echo "Installing Python 3.12..."
-sudo apt install -y python3.12 python3.12-venv python3.12-dev python3-pip python3-apt
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install -y python3.12 python3.12-distutils python3.12-venv
+sudo ln -sf /usr/bin/python3.12 /usr/bin/python3
 
-# Step 4: Set Python 3.12 as the default
-echo "Setting Python 3.12 as the default..."
-sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
+echo "Installing pip for Python 3.12..."
+wget https://bootstrap.pypa.io/get-pip.py
+python3.12 get-pip.py
+rm get-pip.py
 
-# Step 5: Install virtualenv
-echo "Installing virtualenv..."
-python3 -m pip install --upgrade pip
-python3 -m pip install virtualenv
+# 4. Install Miniconda
+echo "Installing Miniconda..."
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O Miniconda3.sh
+bash Miniconda3.sh -b -p $HOME/miniconda
+export PATH="$HOME/miniconda/bin:$PATH"
+conda init bash
+source ~/.bashrc
 
-# Step 6: Create a virtual environment for machine learning
-echo "Creating virtual environment 'ml_env'..."
-python3 -m venv ml_env
+# Create Conda Environment
+echo "Creating Conda environment..."
+conda create -n ml-env python=3.12 -y
+conda activate ml-env
 
-# Step 7: Activate virtual environment
-echo "Activating virtual environment..."
-source ml_env/bin/activate
+# 5. Install NVIDIA GPU Drivers and CUDA Toolkit
+echo "Installing NVIDIA GPU drivers and CUDA Toolkit..."
+sudo apt install -y nvidia-driver-525
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /"
+sudo apt update
+sudo apt install -y cuda
 
-# Step 8: Install ML libraries
-echo "Installing machine learning libraries..."
-pip install numpy scipy scikit-learn tensorflow keras
+# 6. Install TensorFlow and PyTorch with GPU Support
+echo "Installing TensorFlow and PyTorch with GPU support..."
+pip install --no-cache-dir tensorflow
+pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-echo "Machine Learning environment setup is complete!"
+# 7. Install Jupyter Notebook and Additional ML Tools
+echo "Installing Jupyter Notebook and additional Python libraries..."
+pip install --no-cache-dir jupyter matplotlib pandas numpy scikit-learn
+
+# 8. Install Docker and Docker Compose
+echo "Installing Docker and Docker Compose..."
+sudo apt install -y docker.io
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Verification
+echo "Verifying installation..."
+python --version
+pip --version
+conda --version
+nvidia-smi
+docker --version
+docker-compose --version
+
+echo "Machine Learning Environment Setup Completed Successfully!"
