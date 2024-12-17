@@ -42,19 +42,19 @@ The ml_env_setup.sh script performs the following tasks:
 Verification Steps
     After running the script, verify your setup with the following commands:
 
-Python Version:
+1. Python Version:
     python3 --version
 
-Pip Version:
+2. Pip Version:
     pip --version
 
-GPU Driver:
+3. GPU Driver:
     nvidia-smi
 
-Docker:
+4. Docker:
     docker --version
 
-Docker Compose:
+5. Docker Compose:
     docker-compose --version
 
 Notes:
@@ -118,16 +118,17 @@ Install drivers and CUDA for GPU support:
     sudo systemctl enable --now docker
     sudo usermod -aG docker $USER
 
-Install Docker Compose:
+10. Install Docker Compose:
     sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
-Verification
-    Run the following commands to verify the setup:
+
+**Verification** 
+Run the following commands to verify the setup:
 
 Python version:
+   python --version
 
-python --version
-    Pip version:
+Pip version:
     pip --version
     
 Virtual Environment:
